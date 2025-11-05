@@ -37,9 +37,12 @@ app.get(
 );
 
 import userRouter from "./routes/user.routes.js";
-app.use("/api/v1/users", userRouter);
 import swapRouter from "./routes/swap.routes.js";
-app.use("/api/v1/slots", swapRouter);
+import eventRouter from "./routes/event.routes.js";
+
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/swaps", swapRouter);
+app.use("/api/v1/events", eventRouter);
 
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 

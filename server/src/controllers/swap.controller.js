@@ -258,4 +258,63 @@ const handleSwapRequest = asyncHandler(async (req, res) => {
   }
 });
 
-export { getSwappableSlots, createSwapRequest, handleSwapRequest };
+const getIncomingSwapRequests = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+
+  const incomingRequests = await SwapRequest.find({
+    receivingUser: userId,
+    status: "PENDING",
+  })
+    .populate("offeringUser", "name email")
+    .populate("offeringSlot", "title startTime endTime")
+    .populate("requestingSlot", "title startTime endTime")
+    .sort({ createdAt: -1 });
+
+  if (!incomingRequests.length) {
+    throw new ApiError(404, "No incoming swap requests found.");
+  }
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        incomingRequests,
+        "Incoming swap requests fetched successfully."
+      )
+    );
+});
+
+const getOutgoingSwapRequests = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+
+  const outgoingRequests = await SwapRequest.find({
+    offeringUser: userId,
+  })
+    .populate("receivingUser", "name email")
+    .populate("offeringSlot", "title startTime endTime")
+    .populate("requestingSlot", "title startTime endTime")
+    .sort({ createdAt: -1 });
+
+  if (!outgoingRequests.length) {
+    throw new ApiError(404, "No outgoing swap requests found.");
+  }
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        outgoingRequests,
+        "Outgoing swap requests fetched successfully."
+      )
+    );
+});
+
+export {
+  getSwappableSlots,
+  createSwapRequest,
+  handleSwapRequest,
+  getIncomingSwapRequests,
+  getOutgoingSwapRequests,
+};

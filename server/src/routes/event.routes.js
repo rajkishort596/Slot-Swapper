@@ -7,6 +7,8 @@ import {
   updateEventDetails,
   updateEventStatus,
   deleteEvent,
+  getEventById,
+  getUserSwappableEvents,
 } from "../controllers/event.controller.js";
 
 const router = Router();
@@ -17,10 +19,14 @@ router.post("/", createEvent);
 
 router.get("/", getUserEvents);
 
+router.get("/swappable", getUserSwappableEvents);
+
+router.get("/:eventId", getEventById);
+
 router.patch("/:eventId", updateEventDetails);
 
 router.patch("/:eventId/status", updateEventStatus);
 
 router.delete("/:eventId", deleteEvent);
 
-export const eventRouter = router;
+export default router;
