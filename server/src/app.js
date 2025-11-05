@@ -38,6 +38,8 @@ app.get(
 
 import userRouter from "./routes/user.routes.js";
 app.use("/api/v1/users", userRouter);
+import swapRouter from "./routes/swap.routes.js";
+app.use("/api/v1/slots", swapRouter);
 
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 
