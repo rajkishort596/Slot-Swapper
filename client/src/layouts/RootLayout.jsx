@@ -1,4 +1,4 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Container from "../components/Container/Container";
 import Header from "../components/Header/Header";
 import { useEffect } from "react";
@@ -30,7 +30,7 @@ const RootLayout = () => {
     if (status === "idle") {
       hydrateUser();
     }
-  }, [dispatch, status]);
+  }, [dispatch, navigate, status]);
 
   // Loading screen
   if (status === "loading" || status === "idle") {
