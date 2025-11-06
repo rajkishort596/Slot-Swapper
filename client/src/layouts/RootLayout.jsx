@@ -7,7 +7,7 @@ const RootLayout = () => {
     <Container>
       <div className="flex flex-col min-h-screen">
         <Header />
-        <main className="flex-1 relative px-4 lg:px-6 xl:px-31 bg-white overflow-y-auto">
+        <main className="flex-1 relative px-4 lg:px-6 xl:px-31 overflow-y-auto">
           <Outlet />
         </main>
       </div>
