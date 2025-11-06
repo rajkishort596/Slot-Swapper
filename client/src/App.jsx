@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import PrivateRoute from "./components/PrivateRoute";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const router = createBrowserRouter(
@@ -37,7 +38,23 @@ function App() {
     )
   );
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+    </>
+  );
 }
 
 export default App;

@@ -3,6 +3,8 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../features/authSlice.js";
 import { Bell, Menu, X } from "lucide-react";
+import { logoutUser } from "../../api/auth.Api.js";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -10,10 +12,17 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate("/login");
-    setMenuOpen(false);
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      dispatch(logout());
+      navigate("/login");
+      toast.success("Logged out successfully");
+      setMenuOpen(false);
+    } catch (err) {
+      const errorMsg = err?.response?.data?.message || "Logout failed.";
+      toast.error(errorMsg);
+    }
   };
 
   return (
@@ -96,20 +105,29 @@ const Header = () => {
               <Bell size={18} />
             </button>
 
+            <button className="w-9 h-9 flex items-center justify-center rounded-full bg-primary text-white font-semibold hover:opacity-90 transition-all">
+              {user?.name?.[0]?.toUpperCase() || "⦿"}
+            </button>
             <button
               onClick={handleLogout}
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-primary text-white font-semibold hover:opacity-90 transition-all"
+              className="btn btn-primary text-sm px-4 py-2 cursor-pointer"
               title="Logout"
             >
-              {user?.name?.[0]?.toUpperCase() || "⦿"}
+              Logout
             </button>
           </>
         ) : (
           <div className="flex items-center gap-3">
-            <Link to="/login" className="btn btn-muted text-sm px-4 py-2">
+            <Link
+              to="/login"
+              className="btn btn-muted text-sm px-4 py-2 cursor-pointer"
+            >
               Login
             </Link>
-            <Link to="/signup" className="btn btn-primary text-sm px-4 py-2">
+            <Link
+              to="/signup"
+              className="btn btn-primary text-sm px-4 py-2 cursor-pointer"
+            >
               Sign Up
             </Link>
           </div>
