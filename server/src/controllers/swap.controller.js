@@ -3,7 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { Event } from "../models/event.model.js";
-import { SwapRequest } from "../models/swaprequest.model.js";
+import { SwapRequest } from "../models/swapRequest.model.js";
 
 const validateAndGetSlot = async (slotId, currentUserId, expectedStatus) => {
   if (!mongoose.Types.ObjectId.isValid(slotId)) {
