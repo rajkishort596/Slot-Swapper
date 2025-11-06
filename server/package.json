@@ -1,14 +1,16 @@
 {
   "name": "server",
+  "engines": {
+    "node": ">=18"
+  },
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.js",
     "start": "node src/index.js"
   },
-  "keywords": [],
+  "keywords": ["Slot","Slot Swapper","Event Calender"],
   "author": "Rajkishor Thakur",
   "license": "ISC",
   "description": "SlotSwapper is a peer-to-peer time-slot scheduling application",
