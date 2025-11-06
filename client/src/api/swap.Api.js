@@ -35,13 +35,31 @@ export const createSwapRequest = async (mySlotId, theirSlotId) => {
 
 export const handleSwapRequest = async (accepted, requestId) => {
   try {
-    const response = await axios.post(
-      `/swaps/swap-response/${requestId}`,
-      accepted
-    );
+    const response = await axios.post(`/swaps/swap-response/${requestId}`, {
+      accepted,
+    });
     return response.data.data;
   } catch (error) {
     console.error("Failed to Create Swap Request:", error);
+    throw error;
+  }
+};
+
+export const fetchIncomingSlots = async () => {
+  try {
+    const response = await axios.get("/swaps/incoming");
+    return response.data.data;
+  } catch (error) {
+    console.error("Failed to Fetch Incoming Swappable Slots:", error);
+    throw error;
+  }
+};
+export const fetchOutgoingSlots = async () => {
+  try {
+    const response = await axios.get("/swaps/outgoing");
+    return response.data.data;
+  } catch (error) {
+    console.error("Failed to Fetch Outgoing Swappable Slots:", error);
     throw error;
   }
 };

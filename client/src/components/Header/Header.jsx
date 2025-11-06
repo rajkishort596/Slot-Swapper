@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../features/authSlice.js";
-import { Bell, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { logoutUser } from "../../api/auth.Api.js";
 import { toast } from "react-toastify";
 
@@ -85,7 +85,7 @@ const Header = () => {
                 Marketplace
               </NavLink>
               <NavLink
-                to="/requests"
+                to="/swaprequests"
                 className={({ isActive }) =>
                   `transition-colors font-medium ${
                     isActive
@@ -97,13 +97,6 @@ const Header = () => {
                 Swap Requests
               </NavLink>
             </nav>
-
-            <button
-              type="button"
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-card-hover transition-colors"
-            >
-              <Bell size={18} />
-            </button>
 
             <button className="w-9 h-9 flex items-center justify-center rounded-full bg-primary text-white font-semibold hover:opacity-90 transition-all">
               {user?.name?.[0]?.toUpperCase() || "⦿"}
@@ -170,7 +163,7 @@ const Header = () => {
                 Marketplace
               </NavLink>
               <NavLink
-                to="/requests"
+                to="/swaprequests"
                 onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
                   `text-lg ${

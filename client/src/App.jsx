@@ -12,6 +12,7 @@ import Signup from "./pages/Signup";
 import PrivateRoute from "./components/PrivateRoute";
 import { ToastContainer } from "react-toastify";
 import Marketplace from "./pages/Marketplace";
+import SwapRequests from "./pages/SwapRequests";
 
 function App() {
   const router = createBrowserRouter(
@@ -36,6 +37,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Marketplace />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="swaprequests"
+            element={
+              <PrivateRoute>
+                <SwapRequests />
               </PrivateRoute>
             }
           />
