@@ -37,10 +37,6 @@ const getSwappableSlots = asyncHandler(async (req, res) => {
     user: { $ne: currentUserId },
   }).populate("user", "name email");
 
-  if (!swappableSlots.length) {
-    throw new ApiError(404, "No swappable slots found.");
-  }
-
   return res
     .status(200)
     .json(
@@ -246,11 +242,9 @@ const handleSwapRequest = asyncHandler(async (req, res) => {
     }
   } catch (error) {
     await session.abortTransaction();
-    // If the error originated from the try block, rethrow it to be caught by asyncHandler
     if (error instanceof ApiError) {
       throw error;
     } else {
-      // Handle unexpected transaction or database errors gracefully
       throw new ApiError(500, "Transaction failed due to an unexpected error.");
     }
   } finally {
@@ -269,10 +263,6 @@ const getIncomingSwapRequests = asyncHandler(async (req, res) => {
     .populate("offeringSlot", "title startTime endTime")
     .populate("requestingSlot", "title startTime endTime")
     .sort({ createdAt: -1 });
-
-  if (!incomingRequests.length) {
-    throw new ApiError(404, "No incoming swap requests found.");
-  }
 
   return res
     .status(200)
@@ -295,10 +285,6 @@ const getOutgoingSwapRequests = asyncHandler(async (req, res) => {
     .populate("offeringSlot", "title startTime endTime")
     .populate("requestingSlot", "title startTime endTime")
     .sort({ createdAt: -1 });
-
-  if (!outgoingRequests.length) {
-    throw new ApiError(404, "No outgoing swap requests found.");
-  }
 
   return res
     .status(200)
