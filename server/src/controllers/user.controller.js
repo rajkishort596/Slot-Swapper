@@ -172,4 +172,20 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   }
 });
 
-export { registeruser, loginUser, logoutUser, refreshAccessToken };
+const getUserProfile = asyncHandler(async (req, res) => {
+  if (!req.user?._id) {
+    throw new ApiError(401, "User not authenticated");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, req.user, "User profile fetched successfully"));
+});
+
+export {
+  registeruser,
+  loginUser,
+  logoutUser,
+  refreshAccessToken,
+  getUserProfile,
+};
