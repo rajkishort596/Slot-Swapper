@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Container from "../components/Container/Container";
 import Header from "../components/Header/Header";
 import { useEffect } from "react";
@@ -23,15 +23,14 @@ const RootLayout = () => {
         dispatch(logout());
         console.log(err);
         dispatch(setAuthStatus("failed"));
-      } finally {
-        localStorage.setItem("hasVisitedBefore", "true");
+        navigate("/login");
       }
     };
 
     if (status === "idle") {
       hydrateUser();
     }
-  }, [dispatch, navigate, status]);
+  }, [dispatch, status]);
 
   // Loading screen
   if (status === "loading" || status === "idle") {

@@ -31,9 +31,9 @@ const getUserEvents = asyncHandler(async (req, res) => {
 
   const events = await Event.find({ user: userId }).sort({ startTime: 1 });
 
-  if (!events.length) {
-    throw new ApiError(404, "No events found.");
-  }
+  // if (!events.length) {
+  //   throw new ApiError(404, "No events found.");
+  // }
 
   return res
     .status(200)

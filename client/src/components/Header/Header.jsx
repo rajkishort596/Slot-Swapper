@@ -16,9 +16,9 @@ const Header = () => {
     try {
       await logoutUser();
       dispatch(logout());
-      navigate("/login");
-      toast.success("Logged out successfully");
       setMenuOpen(false);
+      toast.success("Logged out successfully");
+      navigate("/login", { replace: true });
     } catch (err) {
       const errorMsg = err?.response?.data?.message || "Logout failed.";
       toast.error(errorMsg);
